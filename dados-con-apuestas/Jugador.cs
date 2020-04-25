@@ -18,15 +18,17 @@ namespace dados_con_apuestas
             this.saldo = saldo;
         }
 
-        public string getNombre()
+        public string GetNombre()
         {
             return this.nombre;
         }
 
-        public void setSaldo(int saldo)
+        public void SetSaldo(float saldo)
         {
             this.saldo = saldo;
         }
+
+        public float GetSaldo() => this.saldo;
 
         // Evalua si el jugador puede pagar la apuesta en caso de perder
         public bool puedePagar(Apuesta a)
@@ -34,14 +36,19 @@ namespace dados_con_apuestas
             return a.Cobrar() <= saldo;
         }
 
-        public void setApuesta(int numero, ModoApuesta modoApuesta, float monto)
+        public void RealizarApuesta(int numero, ModoApuesta modoApuesta, float monto)
         {
             Apuesta a = new Apuesta(numero, modoApuesta, monto);
 
             if (puedePagar(a))
                 this.apuesta = a;
             else
+            {
                 Console.WriteLine("La apuesta supera el saldo disponible");
+                apuesta = new Apuesta(0, ModoApuesta.CONSERVADOR, 0);
+            }
         }
+
+        public Apuesta GetApuesta() => this.apuesta;
     }
 }

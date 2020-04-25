@@ -19,6 +19,9 @@ namespace dados_con_apuestas
             this.monto = monto;
         }
 
+        public int GetNumero() => numero;
+        public float GetMonto() => monto;
+
         // En caso de ganar la apuesta
         public float Pagar()
         {
