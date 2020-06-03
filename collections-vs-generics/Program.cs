@@ -30,7 +30,7 @@ namespace collections_vs_generics
                 bibliotecaArray[i] = l;
             }
             cronometro.Stop();
-            Console.WriteLine($"Carga de datos: {cronometro.Elapsed.TotalSeconds} segundos\n");
+            Console.WriteLine($"Carga de datos: {cronometro.Elapsed.Ticks} ticks\n");
 
             // Ordenamiento de Generics
             Console.WriteLine("Ordenando Generics...");
@@ -38,7 +38,7 @@ namespace collections_vs_generics
             cronometro.Start();
             bibliotecaGenerics.Sort();
             cronometro.Stop();
-            Console.WriteLine($"Ordenamiento de Biblioteca Generics: {cronometro.Elapsed.TotalSeconds} segundos\n");
+            Console.WriteLine($"Ordenamiento de Biblioteca Generics: {cronometro.Elapsed.Ticks} ticks\n");
 
             // Ordenamiento de Collections
             Console.WriteLine("Ordenando Collections...");
@@ -46,15 +46,15 @@ namespace collections_vs_generics
             cronometro.Start();
             bibliotecaCollections.Ordenar();
             cronometro.Stop();
-            Console.WriteLine($"Ordenamiento de Biblioteca Collections: {cronometro.Elapsed.TotalSeconds} segundos\n");
+            Console.WriteLine($"Ordenamiento de Biblioteca Collections: {cronometro.Elapsed.Ticks} ticks\n");
 
             // Ordenamiento de Array
             Console.WriteLine("Ordenando Array...");
             cronometro.Reset();
             cronometro.Start();
-            QuickSort(bibliotecaArray, 0, bibliotecaArray.Length - 1);
+            Array.Sort(bibliotecaArray);
             cronometro.Stop();
-            Console.WriteLine($"Ordenamiento de Biblioteca Array: {cronometro.Elapsed.TotalSeconds} segundos\n");
+            Console.WriteLine($"Ordenamiento de Biblioteca Array: {cronometro.Elapsed.Ticks} ticks\n");
 
             Console.WriteLine("Fin del Programa");
             Console.ReadKey();
@@ -79,32 +79,5 @@ namespace collections_vs_generics
         {
             return new Libro(RandomString(r.Next(4, 20)), RandomString(r.Next(4, 20)));
         }
-
-        // Ordena un Array de objetos
-        public static void QuickSort<T>(T[] arr, int izq, int der) where T : IComparable
-        {
-            int i, j;
-            i = izq; j = der;
-            IComparable pivot = arr[izq];
-
-            while (i <= j)
-            {
-                for (; (arr[i].CompareTo(pivot) < 0) && (i.CompareTo(der) < 0); i++) ;
-                for (; (pivot.CompareTo(arr[j]) < 0) && (j.CompareTo(izq) > 0); j--) ;
-
-                if (i <= j)
-                    Swap(ref arr[i++], ref arr[j--]);
-
-            }
-            if (izq < j) QuickSort<T>(arr, izq, j);
-            if (i < der) QuickSort<T>(arr, i, der);
-        }
-        public static void Swap<T>(ref T x, ref T y)
-        {
-            T temp = x;
-            x = y;
-            y = temp;
-        }
-
     }
 }
